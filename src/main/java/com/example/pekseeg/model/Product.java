@@ -1,5 +1,6 @@
 package com.example.pekseeg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 
@@ -19,17 +20,22 @@ public class Product extends BaseEntity {
 
     private int quantity;
 
+    @JsonIgnore
+    private String userName;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public Product() {
     }
 
-    public Product(String name, int price, int quantity) {
+    public Product(String name, int price, int quantity, User user) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.user = user;
     }
 }
 

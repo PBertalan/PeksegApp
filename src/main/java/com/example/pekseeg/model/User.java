@@ -1,5 +1,6 @@
 package com.example.pekseeg.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,13 @@ public class User extends BaseEntity {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    @JsonIgnore
+    private Role role;
 
     public User() {
     }
@@ -28,5 +35,7 @@ public class User extends BaseEntity {
         this.fullName = fullName;
         this.password = password;
     }
+
+
 }
 
